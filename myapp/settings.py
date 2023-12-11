@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-from re import template
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_u01hgzoj^iru*wtjdf0^r%5pq=mf21b5a*nq5^v8elt7ker!!'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-secret-key-goes-here')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False  # Set to False in production
 
-ALLOWED_HOSTS = ['x23109831employee-env.eba-vp239r4m.sa-east-1.elasticbeanstalk.com', 'c8672317fe1b4d7b9b71076cef22b610.vfs.cloud9.eu-west-1.amazonaws.com']
+ALLOWED_HOSTS = [
+    'x23109831employee-env.eba-vp239r4m.sa-east-1.elasticbeanstalk.com',
+    'c8672317fe1b4d7b9b71076cef22b610.vfs.cloud9.eu-west-1.amazonaws.com'
+    # Add your production domain or IP addresses here
+]
 
 
 # Application definition
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'myapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,34 +75,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'myapp.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         # 'NAME': BASE_DIR / 'db.sqlite3',
-#         'NAME': 'newemp',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': 'localhost',
-#         'PORT': '3306'
-#     }
-# }
-
-
+# Database Configuration (Uncomment and configure the one you intend to use)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
+    # Uncomment and configure for MySQL:
+    # "default": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "newemp",
+    #     "USER": "root",
+    #     "PASSWORD": "root",
+    #     "HOST": "localhost",
+    #     "PORT": "3306"
+    # }
 }
 
 # Password validation
@@ -136,14 +126,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'  # Make sure it ends with a forward slash
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# static
-STATICFILES_DIRS = os.path.join(BASE_DIR,'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-
