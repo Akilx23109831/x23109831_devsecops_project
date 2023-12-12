@@ -27,7 +27,7 @@ DEBUG = False  # Set to False in production
 
 ALLOWED_HOSTS = [
     'x23109831employee-env.eba-vp239r4m.sa-east-1.elasticbeanstalk.com',
-    'c8672317fe1b4d7b9b71076cef22b610.vfs.cloud9.eu-west-1.amazonaws.com'
+    '07048cdbc3d14bc786397b0b96b11542.vfs.cloud9.eu-west-1.amazonaws.com'
     # Add your production domain or IP addresses here
 ]
 
